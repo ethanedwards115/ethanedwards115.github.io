@@ -1,0 +1,46 @@
+:root {
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+}
+
+
+
+
+  main {
+    margin: 0 auto;
+    padding: 5px 150px;
+  }
+
+  h5 {
+    padding-top: 15px;
+  }
+
+  li {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  input {
+    width: 15px;
+    height: 15px;
+    margin-right: 20px;
+  }
+
+  button {
+    margin-top: 10px;
+    padding-right: 15px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @media (max-width: 576px) {
+    main {
+      margin: 0 auto;
+      padding: 15px 30px;
+    }
+  }
