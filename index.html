@@ -130,6 +130,7 @@
 
         newItem.addEventListener("click", function() {
 
+          newItem.parentElement.removeChild(newItem);
         });
 
         document.getElementById("task-list").appendChild(newItem);
