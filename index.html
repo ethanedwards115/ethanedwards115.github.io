@@ -130,7 +130,13 @@
 
         newItem.addEventListener("click", function() {
 
-          newItem.parentElement.removeChild(newItem);
+          var json = getToDoList();
+
+          json.tasks.splice(i);
+
+          newItem = newItem.parentElement.removeChild(newItem);
+
+
         });
 
         document.getElementById("task-list").appendChild(newItem);
@@ -147,6 +153,9 @@
     localStorage.setItem("todo-list", strItem);
   }
 
+  function clearChildren(em){
+    em.removeChildren();
+  }
 
   document.getElementById("add-todo-item").addEventListener("click", function() {
 
