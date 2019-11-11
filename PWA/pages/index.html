@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/master.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/55efebeace.js" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('../js/sw.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
+
+  <title>To-do list</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">TO-DO List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#"> Show all <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Show to-do list only</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Show completed tasks only</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section>
+      <div class="todo-items">
+        <h5>Things to do:</h5>
+        <ul id="task-list" class="list-group">
+
+          <li id="empty-list-indicator" class="list-group-item d-flex justify-content-start align-items-center alert alert-secondary">
+            You have nothing to do! Add a task using the text box below.
+          </li>
+        </ul>
+      </div>
+
+      <div class="completed-items">
+        <h5>Completed items:</h5>
+        <ul id="completed-tasks" class="list-group">
+
+          <li class="list-group-item d-flex justify-content-between align-items-center alert alert-secondary">
+            You have completed all your tasks! Click/tap on a task to move it here.
+          </li>
+
+          <li class="list-group-item d-flex justify-content-start align-items-center btn btn-success">
+            Completed task
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="add-item">
+        <form>
+          <h5>Add to-do item</h5>
+          <input type="text" class="form-control" id="todo-input" placeholder="Engage hyperspeed">
+          <button type="submit" id="add-todo-item" class="btn btn-secondary">Add item</button>
+          <button type="submit" class="btn btn-secondary">Clear completed items</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+</body>
+
+<script type="text/javascript">
+  function reset() {
+
+    localStorage.clear();
+  }
+
+  function getToDoList() {
+    var strItem = localStorage.getItem("todo-list");
+    var json;
+
+    console.log("json contents: " + strItem)
+
+    if (strItem == null) {
+      json = {
+        tasks: []
+      };
+
+    } else {
+      console.log("json contents: " + strItem)
+      json = JSON.parse(strItem);
+    }
+    return json
+  }
+
+  function displayToDoList(json) {
+
+    if (json.tasks == []) {
+      document.getElementById("empty-list-indicator").setAttribute("class", "list-group-item d-flex justify-content-start align-items-center alert alert-secondary");
+
+    } else {
+      document.getElementById("empty-list-indicator").setAttribute("class", "hidden");
+
+      for (var i = 0; i < json.tasks.length; i++) {
+        var newItem = document.createElement("li");
+        newItem.setAttribute("class", "list-group-item d-flex justify-content-start align-items-center btn btn-warning");
+        newItem.innerHTML = "" + json.tasks[i];
+
+        newItem.addEventListener("click", function() {
+
+        });
+
+        document.getElementById("task-list").appendChild(newItem);
+      }
+    }
+  }
+
+  function updateToDoList(json){
+    var task = document.getElementById("todo-input").value;
+
+    json.tasks.push(task);
+
+    strItem = JSON.stringify(json);
+    localStorage.setItem("todo-list", strItem);
+  }
+
+
+  document.getElementById("add-todo-item").addEventListener("click", function() {
+
+    var json = getToDoList();
+    updateToDoList(json);
+    
+  });
+
+  window.onload = displayToDoList();
+</script>
+
+</html>
