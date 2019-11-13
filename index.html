@@ -82,8 +82,8 @@
         <form>
           <h5>Add to-do item</h5>
           <input type="text" class="form-control" id="todo-input" placeholder="Engage hyperspeed">
-          <button type="submit" id="add-todo-item" class="btn btn-secondary">Add item</button>
-          <button type="submit" class="btn btn-secondary">Clear completed items</button>
+          <button type="button" id="add-todo-item" class="btn btn-secondary">Add item</button>
+          <button type="button" class="btn btn-secondary">Clear completed items</button>
         </form>
       </div>
     </section>
@@ -93,7 +93,6 @@
 
 <script type="text/javascript">
   function reset() {
-
     localStorage.clear();
   }
 
@@ -103,7 +102,7 @@
 
     console.log("json contents: " + strItem)
 
-    if (strItem == null) {
+    if (strItem === null) {
       json = {
         tasks: []
       };
@@ -117,57 +116,59 @@
 
   function displayToDoList(json) {
 
-    if (json.tasks == []) {
+    if (json.tasks.length == 0) {
       document.getElementById("empty-list-indicator").setAttribute("class", "list-group-item d-flex justify-content-start align-items-center alert alert-secondary");
 
     } else {
-      document.getElementById("empty-list-indicator").setAttribute("class", "hidden");
-
       for (var i = 0; i < json.tasks.length; i++) {
-        var newItem = document.createElement("li");
-        newItem.setAttribute("class", "list-group-item d-flex justify-content-start align-items-center btn btn-warning");
-        newItem.innerHTML = "" + json.tasks[i];
-
-        newItem.addEventListener("click", function() {
-
-          var json = getToDoList();
-
-          json.tasks.splice(i);
-
-          updateToDoList(json);
-
-          newItem = newItem.parentElement.removeChild(newItem);
-
-
-        });
-
-        document.getElementById("task-list").appendChild(newItem);
+        displayNewItem(json.tasks[i], i);
       }
     }
   }
 
-  function updateToDoList(json){
+  function displayNewItem(text, index){
+    document.getElementById("empty-list-indicator").setAttribute("class", "hidden");
+
+    var listContainer = document.getElementById("task-list");
+
+    var newItem = document.createElement("li");
+    newItem.setAttribute("class", "list-group-item d-flex justify-content-start align-items-center btn btn-warning");
+    newItem.setAttribute("onClick", "complete(" + index + ")");
+    newItem.innerHTML = text;
+
+    listContainer.appendChild(newItem);
+  }
+
+  function updateToDoList(json) {
     var task = document.getElementById("todo-input").value;
 
-    json.tasks.push(task);
+    if (task != "") {
+      json.tasks.push(task);
+    }
 
     strItem = JSON.stringify(json);
     localStorage.setItem("todo-list", strItem);
   }
 
-  function clearChildren(em){
-    em.removeChildren();
+  function complete(index) {
+    var list = getToDoList();
+
+    list.tasks = list.tasks.filter(function(item) {
+      return item !== list.tasks[index];
+    });
+
+    updateToDoList(list);
   }
 
   document.getElementById("add-todo-item").addEventListener("click", function() {
 
     var json = getToDoList();
     updateToDoList(json);
+    displayNewItem(json.tasks.pop());
 
   });
 
   window.onload = displayToDoList(getToDoList());
-
 </script>
 
 </html>
