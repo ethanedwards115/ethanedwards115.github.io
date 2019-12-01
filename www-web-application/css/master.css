@@ -1,4 +1,4 @@
-/* The font for the title of the pages */
+/*The font for the title of the pages */
 @import url('https://fonts.googleapis.com/css?family=Alata&display=swap');
 
 body {
@@ -11,6 +11,16 @@ body {
 .navbar .navbar-expand-lg .navbar-light .bg-light {
   /* Shrink the navbar to the content's size */
   flex-shrink: 0;
+}
+
+.basket-link {
+  position: relative;
+}
+
+.basket-items-count {
+  position: absolute;
+  top: 27px;
+  left: 30px;
 }
 
 main {
@@ -31,7 +41,7 @@ main {
   -webkit-text-stroke-color: black;
 }
 
-#dundee{
+#dundee {
   -webkit-text-stroke-color: #3A9B67;
   font-size: 50px;
 }
@@ -44,7 +54,6 @@ main {
 .footer {
   /* Shrink the footer to the content's size */
   flex-shrink: 0;
-
   /* Make it as width as the screen (body) */
   width: 100%;
   background-color: #56CC9D;
@@ -60,10 +69,8 @@ h1 {
 .shop-name {
   /* Always display the shop's name together */
   display: inline-block;
-
   text-transform: uppercase;
   letter-spacing: 2px;
-
   /* Make the font hollow */
   -webkit-text-fill-color: white;
   -webkit-text-stroke-width: 2px;
@@ -73,6 +80,91 @@ h1 {
 /* Make the shop name's outline green */
 .green {
   -webkit-text-stroke-color: #3A9B67;
+}
+
+#green-container {
+  margin-top: 100px;
+}
+
+.greenimg {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+#plastic.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgb(86, 204, 157);
+}
+
+#foods.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s;
+  background-color: rgb(86, 204, 157);
+}
+
+#global.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgb(86, 204, 157);
+}
+
+#plasticHover:hover .overlay {
+  opacity: 1;
+}
+
+#globalHover:hover .overlay {
+  opacity: 1;
+}
+
+#foodsHover:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#globalText {
+  font-size: 13px;
+}
+
+#plasticText {
+  font-size: 13px;
+}
+
+#greenPara {
+  font-size: 20px;
 }
 
 /* Make the texts bigger on larger screens */
@@ -90,7 +182,7 @@ h1 {
     -webkit-text-stroke-width: 3px;
   }
 
-  #dundee{
+  #dundee {
     font-size: 60px;
   }
 }
@@ -109,7 +201,7 @@ h1 {
     -webkit-text-stroke-width: 3.5px;
   }
 
-  #dundee{
+  #dundee {
     font-size: 70px;
   }
 }
@@ -128,7 +220,7 @@ h1 {
     -webkit-text-stroke-width: 4px;
   }
 
-  #dundee{
+  #dundee {
     font-size: 80px;
   }
 }
@@ -147,7 +239,7 @@ h1 {
     -webkit-text-stroke-width: 5px;
   }
 
-  #dundee{
+  #dundee {
     font-size: 90px;
   }
 }
@@ -179,26 +271,6 @@ h1 {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Icons in the footer */
-.fab {
- color: #FFFFFF;
-}
-
-.card {
-  height: 600px;
-  max-width: 400px;
-  margin: 0 auto;
-  transition: transform .1s;
-}
-
-.card:hover {
-  -ms-transform: scale(1.1);
-  /* IE 9 */
-  -webkit-transform: scale(1.1);
-  /* Safari 3-8 */
-  transform: scale(1.1);
-}
-
 #card-title {
   color: black;
 }
@@ -207,6 +279,11 @@ h1 {
   margin-top: 23px;
 }
 
+.divider {
+  height: 10px;
+}
+
+/* Icons in the footer */
 .fab {
   color: #FFFFFF;
 }
