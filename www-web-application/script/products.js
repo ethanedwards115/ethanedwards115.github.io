@@ -72,9 +72,8 @@ function displayProducts(products = getProducts()) {
           append(li, span);
           append(container, li);
         } catch (e) {
-          console.log(e);
+          // do nothing
         }
-        console.log('card created!')
       }
     }
   });
@@ -88,7 +87,7 @@ function getProducts() {
 
 function getFilteredProducts(filterValue, byCategory = true) {
 
-  if (filterValue == 'None') {
+  if (filterValue == 'default') {
     return;
   } else {
     let products = getProducts();
@@ -99,11 +98,11 @@ function getFilteredProducts(filterValue, byCategory = true) {
 
       for (var i = 0; i < items.length; i++) {
         for (var j = 0; j < items[i].length; j++) {
-          console.log(i + ', ' + j);
+
           if (byCategory) {
             if (items[i][j].category == filterValue) {
               filteredProducts.push(items[i]);
-              console.log('pushed at: ' + i + ', ' + j);
+
               break;
             }
           } else {
@@ -114,7 +113,7 @@ function getFilteredProducts(filterValue, byCategory = true) {
           }
         }
       }
-      console.log(filteredProducts);
+
       return filteredProducts;
     });
   }
@@ -155,9 +154,6 @@ function addToBasket(i, j) {
 
     let amount = document.getElementById('selector' + i + j).value;
 
-    console.log(basket);
-    console.log(items[i][j].name);
-
     basket.products.push({
       "name": items[i][j].name,
       "amount": amount + 'g',
@@ -165,7 +161,6 @@ function addToBasket(i, j) {
     })
 
     basket = JSON.stringify(basket);
-    console.log(basket);
 
     localStorage.setItem('basket', basket);
 
@@ -259,6 +254,15 @@ function removeBasketItem(i) {
   displayBasket();
 }
 
+function redrawBasket() {
+
+  let basket = document.getElementsByClassName('basket')[0];
+  basket.style.display = 'none';
+  basket.style.display = 'block';
+}
+
 setFilterTags();
 displayProducts();
 displayBasket();
+
+window.addEventListener('resize', redrawBasket);
